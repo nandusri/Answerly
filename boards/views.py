@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Board, Topic, Post
 from .forms import NewTopicForm,PostForm
+from django.db.models import Count
+from django.views.generic import CreateView
 
 # Create your views here.
 def home(request):
@@ -32,8 +34,11 @@ def new_topic(request, pk):
 
 def topic_posts(request, pk, topic_pk):
     topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+    topic.views += 1
+    topic.save()
     return render(request, 'topic_posts.html', {'topic': topic})
 
+@login_required
 def reply_topic(request, pk, topic_pk):
     topic = get_object_or_404(Topic, board__pk = pk, pk = topic_pk)
     if request.method == 'POST':
