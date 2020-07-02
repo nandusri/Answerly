@@ -10,12 +10,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="mb-4">
-    <a href="{% url 'new_topic' board.pk %}" class="btn btn-dark">New topic</a>
-</div>
+  <div class="mb-4">
+    <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
+  </div>
 
-<table class="table">
-    <thead class="thead-dark">
+  <table class="table mb-4">
+    <thead class="thead-inverse">
       <tr>
         <th>Topic</th>
         <th>Starter</th>
@@ -36,4 +36,7 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {% include 'includes/pagination.html' %}
+
 {% endblock %}
